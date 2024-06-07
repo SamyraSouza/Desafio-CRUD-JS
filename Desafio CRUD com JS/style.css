@@ -5,3 +5,12 @@
 #sistema{
   margin-left: 25%;
 }
+#tabela, #emprestados{
+  margin-top: 200px;
+  width: 80%;
+  margin-left: 300px;
+}
+#requerimento{
+  display: flex;
+  justify-content: center;
+}

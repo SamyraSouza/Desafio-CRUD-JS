@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="./assets/img/livro.png">
   <title>Leitor</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -19,6 +19,7 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -33,18 +34,58 @@
     </div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav">     
+        
+      <li class="nav-item">
+          <a class="nav-link " href="index.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-books text-primary text-sm opacity-10"></i>
+            </div>
+            <span id="livros" class="nav-link-text ms-1">Página Inicial</span>
+          </a>
+        </li>
+
+      <li class="nav-item">
+          <a class="nav-link " href="meus.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-collection text-primary text-sm opacity-10"></i>
+            </div>
+            <span id="livros" class="nav-link-text ms-1">Meus Livros</span>
+          </a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link " href="livros.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-collection text-info text-sm opacity-10"></i>
+              <i class="ni ni-align-left-2 text-primary text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Livros</span>
+            <span id="livros" class="nav-link-text ms-1">Livros Disponiveis</span>
           </a>
         </li>
-      </ul>
-    </div>
+     
+        <li class="nav-item">
+          <a class="nav-link " href="requerimentos.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni  ni-collection ni-single-copy-04 text-primary text-sm opacity-10"></i>
+            </div>
+            <span id="livros" class="nav-link-text ms-1">Meus Requerimentos</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " href="emprestados.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-copy-04  text-primary text-sm opacity-10"></i>
+            </div>
+            <span id="livros" class="nav-link-text ms-1">Livros Emprestados</span>
+          </a>
+        </li>
+
    
+
+      </ul>
+ </div>
+
   </aside>
   
 
