@@ -25,6 +25,57 @@
 
 <body class="">
 
+  <!-- Sign-up -->
+ <div id="cadastro">
+  <main class="main-content  mt-0">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('assets/img/cadastrar.jpg'); background-position: top;">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-5">Bem-vindo!</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
+        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+          <div class="card z-index-0">
+
+            <div class="card-body">
+              <form role="form">
+                <div class="mb-3">
+                  <input id="nome" type="text" class="form-control" placeholder="Nome" aria-label="Nome">
+                </div>
+                <div class="mb-3">
+                  <input id="email" type="email" class="form-control" placeholder="Email" aria-label="Email">
+                </div>
+                <div class="mb-3">
+                  <input id="contato" type="tel" class="form-control" placeholder="Contato" aria-label="Contato">
+                </div>
+                <div class="mb-3">
+                  <input id="senha" type="password" class="form-control" placeholder="Senha" aria-label="Senha">
+                </div>
+                <div class="form-check form-check-info text-start">
+                  <input required class="form-check-input" id="concordo" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Concordo com os<a href="javascript:;" class="text-dark font-weight-bolder"> Termos e condições</a>
+                  </label>
+                </div>
+                <div class="text-center">
+                  <button id="cad" type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Cadastrar</button>
+                </div>
+                <p class="text-sm mt-3 mb-0">Já tem uma conta? <a href="sign-in.php" class="text-dark font-weight-bolder">Entrar</a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  </div>
+
 
 <!-- Sign-in -->
 <div id="entrar">
@@ -82,7 +133,7 @@
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
     
-      <a class="navbar-brand m-0 text-center mt-3" href="index.php">
+      <a class="navbar-brand m-0 text-center mt-3" href="#">
         <span class="ms-1 font-weight-bold">Leitor</span>
       </a>
     </div>
@@ -91,7 +142,7 @@
       <ul class="navbar-nav">     
         
       <li class="nav-item">
-          <a class="nav-link " href="index.php">
+          <a class="nav-link " href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-books text-primary text-sm opacity-10"></i>
             </div>
@@ -99,15 +150,17 @@
           </a>
         </li>
 
-      <li class="nav-item">
-          <a class="nav-link " href="meus.php">
+      <li class="nav-item" style="display:flex;">
+          <button  style="border:none; background-color:white;" class="nav-link " type="submit" id="meus">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-primary text-sm opacity-10"></i>
             </div>
             <span id="livros" class="nav-link-text ms-1">Meus Livros</span>
-          </a>
+</button>
         </li>
 
+
+        
         <li class="nav-item">
           <a class="nav-link " href="livros.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -118,7 +171,7 @@
         </li>
      
         <li class="nav-item">
-          <a class="nav-link " href="requerimentos.php">
+          <a class="nav-link " href="requerimentos.php??id=">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni  ni-collection ni-single-copy-04 text-primary text-sm opacity-10"></i>
             </div>
@@ -178,19 +231,39 @@
 
 </div>
 
+<!-- Livros Emprestados -->
+<div id="emprestados" class="card">
+  <div class="table-responsive">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ISBN</th>
+          <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7 ps-2">Título</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Categoria</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data de Publicação</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Autor</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data Devolução</th>
+        </tr>
+      </thead>
+
+      <tbody id="emprestados">
+     
+      </tbody>
+
+
+    </table>
+  </div>
+</div>
+
+
   <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
   <!--   Core JS Files   -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
-    <script> 
-      $('#contato').mask('(00)00000-0000');
-    </script>
+   
 
   <script src="inserts/js/cadastroLeitor.js"></script>
+  
   <!-- Github buttons -->
-  <script> 
-      $('#entrar').show();
-    </script>
-    
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 </body>

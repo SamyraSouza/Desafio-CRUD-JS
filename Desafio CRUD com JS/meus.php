@@ -1,6 +1,7 @@
 <?php
     include('header.php');
 ?>
+
 <div id="emprestados" class="card">
   <div class="table-responsive">
     <table class="table align-items-center mb-0">
