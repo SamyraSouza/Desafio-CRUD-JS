@@ -1,8 +1,28 @@
 $('#entrar').hide();
 $('#entrou').hide();
 $('#emprestados').hide();
+$('#disponiveis').hide();
 $('#sistema').hide();
 $('#contato').mask("(00)00000-0000");
+
+//Entrar direto
+$("#ent").click(function(e){
+
+    e.preventDefault();
+
+    $('#cadastro').hide();
+    $('#entrar').show();
+});
+
+//Cadastrar direto
+$("#cadas").click(function(e){
+
+    e.preventDefault();
+
+    $('#cadastro').show();
+    $('#entrar').hide();
+});
+
 
 // validar email
 $('#email').blur(function (e) { 
@@ -107,18 +127,118 @@ else{
     $('#sistema').show();
      $('#entrar').hide();
      $('#entrou').show();
-  
 }
 
 });
 });
 
-$('#meus').submit(function(e){
+//Página inicial
+$("#pg").click(function(e){
 
-    e.preventDefault();  
-    
-    console.log("foi");
-    return;
+    e.preventDefault();
 
+    $('#emprestados').hide();
+    $('#disponiveis').hide();
+    $('#sistema').show();
 });
 
+// selecionar livros disponiveis
+$("#livrosDispo").click(function(e){
+
+    e.preventDefault();
+
+    $.ajax({
+
+        url: 'selecionardisp.php',
+        method: 'GET' ,
+        dataType:'json'
+
+    }).done(function(result){
+     
+            if(result == "error"){
+            '<td colspan="6"> Nenhum livro encontrado</td>';
+        }
+
+        else{
+
+        for(var i = 0; i<result.length; i++){
+
+            $('#dispo').prepend(
+                '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN+'</h6></td>'+
+                '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nomes+'</p> </td> '+
+                '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td>'
+                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td><td><div class="text-center"><button onclick="fazer( ISBN ='+"'"+result[i].ISBN+"'"+')" id="fazer" type="submit" class="btn btn-info">Fazer requerimento</button></div></td></tr>');
+        }
+}
+                $('#emprestados').hide();
+                $('#sistema').hide();
+                $('#disponiveis').show();   
+                               
+    });
+        });
+  
+
+// Fazer requerimento
+function fazer(){
+
+    var u_livro = ISBN;
+    var u_email = $('#emailcheck').val();
+    var id = '';
+
+    // console.log(u_livro)
+    // console.log(u_email)
+    // return
+
+    $.ajax({
+        url: 'requerimento.php',
+        method: 'POST' ,
+        data: {livro: u_livro, pessoa: u_email, id: id},
+        dataType:'json'
+
+    }).done(function(result){
+
+        if(result == "success"){
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Livro requerido com sucesso",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }
+    });
+};
+
+
+// selecionar livros emprestados
+$("#livrosEmp").click(function(e){
+
+    e.preventDefault();
+    
+    $.ajax({
+
+        url: 'selecionar.php',
+        method: 'GET' ,
+        dataType:'json'
+
+    }).done(function(result){
+     
+        if(result == "error"){
+            '<td colspan="6"> Nenhum livro encontrado</td>';
+        }
+        else{
+        for(var i = 0; i<result.length; i++){
+
+            $('#empre').prepend(
+                '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
+                '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nomes+'</p> </td> '+
+                '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td>'
+                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td></tr>');
+                           
+        }
+}
+                $('#emprestados').show();
+                $('#disponiveis').hide();
+                $('#sistema').hide();
+    });
+        });

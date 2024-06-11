@@ -5,11 +5,11 @@
 #sistema{
   margin-left: 25%;
 }
-#tabela, #emprestados{
+#tabela, #emprestados, #disponiveis{
   margin-top: 200px;
-  width: 80%;
   margin-left: 300px;
 }
+
 #requerimento{
   display: flex;
   justify-content: center;

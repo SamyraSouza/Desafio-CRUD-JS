@@ -11,6 +11,7 @@ $stmt = $pdo->prepare('select * from cliente where email = :em ');
 $stmt->bindValue(':em', $email);
 
 $stmt->execute();
+
 if($stmt->rowCount() >= 1){
 
     echo json_encode('error');

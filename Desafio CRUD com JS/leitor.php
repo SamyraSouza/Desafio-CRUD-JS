@@ -14,6 +14,7 @@
   <!-- Nucleo Icons -->
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
@@ -66,7 +67,7 @@
                 <div class="text-center">
                   <button id="cad" type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Cadastrar</button>
                 </div>
-                <p class="text-sm mt-3 mb-0">Já tem uma conta? <a href="sign-in.php" class="text-dark font-weight-bolder">Entrar</a></p>
+                <p class="text-sm mt-3 mb-0">Já tem uma conta? <button style="border:none;background-color:white;" id="ent" class="text-dark font-weight-bolder">Entrar</button></p>
               </form>
             </div>
           </div>
@@ -106,7 +107,7 @@
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Não tem uma conta?
-                    <a href="sign-up.php" class="text-primary text-gradient font-weight-bold">Cadastrar</a>
+                    <button style="border:none;background-color:white;" id="cadas" class="text-primary text-gradient font-weight-bold">Cadastrar</button>
                   </p>
                 </div>
               </div>
@@ -141,62 +142,56 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">     
         
-      <li class="nav-item">
-          <a class="nav-link " href="#">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-books text-primary text-sm opacity-10"></i>
-            </div>
-            <span id="livros" class="nav-link-text ms-1">Página Inicial</span>
-          </a>
-        </li>
-
-      <li class="nav-item" style="display:flex;">
-          <button  style="border:none; background-color:white;" class="nav-link " type="submit" id="meus">
+      <li id="pg" class="nav-item" style="display:flex;">
+          <button  style="border:none; background-color:white;" class="nav-link " id="pg">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-primary text-sm opacity-10"></i>
             </div>
-            <span id="livros" class="nav-link-text ms-1">Meus Livros</span>
+            <span class="nav-link-text ms-1">Página Inicial</span>
 </button>
         </li>
+  
 
-
-        
-        <li class="nav-item">
-          <a class="nav-link " href="livros.php">
+      <li id="meus" class="nav-item" style="display:flex;">
+          <button  style="border:none; background-color:white;" class="nav-link " id="meus">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-collection text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Meus Livros</span>
+</button>
+        </li>
+       
+        <li class="nav-item" style="display:flex;">
+          <button  style="border:none; background-color:white;" class="nav-link " id="livrosDispo">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-align-left-2 text-primary text-sm opacity-10"></i>
             </div>
-            <span id="livros" class="nav-link-text ms-1">Livros Disponiveis</span>
-          </a>
+            <span class="nav-link-text ms-1">Livros Disponiveis</span>
+            </button>
         </li>
      
         <li class="nav-item">
-          <a class="nav-link " href="requerimentos.php??id=">
+          <a class="nav-link " href="">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni  ni-collection ni-single-copy-04 text-primary text-sm opacity-10"></i>
             </div>
-            <span id="livros" class="nav-link-text ms-1">Meus Requerimentos</span>
+            <span class="nav-link-text ms-1">Meus Requerimentos</span>
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link " href="emprestados.php">
+        <li class="nav-item" style="display:flex;">
+          <button  style="border:none; background-color:white;" class="nav-link" id="livrosEmp">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-copy-04  text-primary text-sm opacity-10"></i>
             </div>
-            <span id="livros" class="nav-link-text ms-1">Livros Emprestados</span>
-          </a>
+            <span class="nav-link-text ms-1">Livros Emprestados</span>
+            </button>
         </li>
-
-   
-
       </ul>
  </div>
-
   </aside>
 
   <main class="main-content position-relative border-radius-lg ">
-    <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
@@ -210,10 +205,10 @@
     </div>
   </div>
 </nav>
-            </div>
-       </main>
+  </div>
+  </main>
 
-
+<!-- Página inicial -->
        <div id="sistema" class="container mt-10">
   <div class="row">
 <div class="table-responsive">
@@ -228,11 +223,37 @@
 </div>
 </div>
 </div>
-
 </div>
 
+
+<!-- Livros Disponíveis -->
+<div id="disponiveis" class="card"  style="margin: top 200px; margin-left:300px;">
+  <div class="table-responsive">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ISBN</th>
+          <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7 ps-2">Título</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Categoria</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data de Publicação</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Autor</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data Devolução</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Ação</th>
+        </tr>
+      </thead>
+
+      <tbody id="dispo">
+     
+      </tbody>
+
+
+    </table>
+  </div>
+</div>
+
+
 <!-- Livros Emprestados -->
-<div id="emprestados" class="card">
+<div id="emprestados" class="card"  style="margin: top 200px; margin-left:300px;">
   <div class="table-responsive">
     <table class="table align-items-center mb-0">
       <thead>
@@ -246,11 +267,9 @@
         </tr>
       </thead>
 
-      <tbody id="emprestados">
+      <tbody id="empre">
      
       </tbody>
-
-
     </table>
   </div>
 </div>
