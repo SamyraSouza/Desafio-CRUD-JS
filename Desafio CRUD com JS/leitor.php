@@ -170,8 +170,8 @@
             </button>
         </li>
      
-        <li class="nav-item">
-          <a class="nav-link " href="">
+        <li class="nav-item" style="display:flex;">
+          <button  style="border:none; background-color:white;" class="nav-link " id="reque">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni  ni-collection ni-single-copy-04 text-primary text-sm opacity-10"></i>
             </div>
@@ -237,12 +237,52 @@
           <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Categoria</th>
           <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data de Publicação</th>
           <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Autor</th>
-          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data Devolução</th>
           <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Ação</th>
         </tr>
       </thead>
 
       <tbody id="dispo">
+     
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<!-- Meus livros -->
+<div id="meusLivros" class="card"  style="margin: top 200px; margin-left:300px;">
+  <div class="table-responsive">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ISBN</th>
+          <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7 ps-2">Título</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Autor</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data Devolução</th>
+        </tr>
+      </thead>
+
+      <tbody id="meusli">
+     
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<!-- Meus requerimentos -->
+<div id="requerimentos" class="card"  style="margin: top 200px; margin-left:300px;">
+  <div class="table-responsive">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ISBN</th>
+          <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7 ps-2">Título</th>
+          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Ação</th>
+        </tr>
+      </thead>
+
+      <tbody id="requer">
      
       </tbody>
 

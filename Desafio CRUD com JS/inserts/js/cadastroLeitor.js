@@ -3,6 +3,8 @@ $('#entrou').hide();
 $('#emprestados').hide();
 $('#disponiveis').hide();
 $('#sistema').hide();
+$('#meusLivros').hide();
+$('#requerimentos').hide();
 $('#contato').mask("(00)00000-0000");
 
 //Entrar direto
@@ -139,8 +141,54 @@ $("#pg").click(function(e){
 
     $('#emprestados').hide();
     $('#disponiveis').hide();
+    $('#requerimentos').hide();
+    $('#meusLivros').hide();
     $('#sistema').show();
 });
+
+// selecionar meus livors
+$("#meus").click(function(e){
+
+    var u_email = $('#emailcheck').val();
+
+    e.preventDefault();
+    
+    $.ajax({
+
+        url: 'meus.php',
+        method: 'POST' ,
+        data: {pessoa: u_email},
+        dataType:'json'
+
+    }).done(function(result){
+     
+        if(result == "error"){
+            '<td colspan="6"> Nenhum livro encontrado</td>';
+        }
+        else{
+        for(var i = 0; i<result.length; i++){
+
+        data = new Date(result[i].dataDevo);
+        dataFormatadaD = data.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+    
+
+            $('#meusli').prepend(
+                '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
+                '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+
+                '<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaD+'</p> </td></tr>');
+                           
+        }
+           
+ }              
+                $('#emprestados').hide();
+                $('#disponiveis').hide();
+                $('#requerimentos').hide();
+                $('#meusLivros').show();
+                $('#sistema').hide();
+    });  
+        });
+
+
 
 // selecionar livros disponiveis
 $("#livrosDispo").click(function(e){
@@ -163,21 +211,25 @@ $("#livrosDispo").click(function(e){
 
         for(var i = 0; i<result.length; i++){
 
+            dataP = new Date(result[i].dataPubli);
+            dataFormatadaP = dataP.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+
             $('#dispo').prepend(
                 '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN+'</h6></td>'+
                 '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nomes+'</p> </td> '+
-                '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td>'
-                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td><td><div class="text-center"><button onclick="fazer( ISBN ='+"'"+result[i].ISBN+"'"+')" id="fazer" type="submit" class="btn btn-info">Fazer requerimento</button></div></td></tr>');
+                '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaP+'</p> </td>'
+                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td><div class="text-center"><button onclick="fazer( ISBN ='+"'"+result[i].ISBN+"'"+')" id="fazer" type="submit" class="btn btn-info">Fazer requerimento</button></div></td></tr>');
         }
 }
                 $('#emprestados').hide();
                 $('#sistema').hide();
+                $('#requerimentos').hide();
+                $('#meusLivros').hide();
                 $('#disponiveis').show();   
                                
-    });
-        });
-  
-
+    }); 
+});
+   
 // Fazer requerimento
 function fazer(){
 
@@ -209,6 +261,71 @@ function fazer(){
     });
 };
 
+// requerimento
+$("#reque").click(function(e){
+
+    var u_email = $('#emailcheck').val();
+
+    e.preventDefault();
+    
+    $.ajax({
+
+        url: 'selecionarreq.php',
+        method: 'POST' ,
+        data: {pessoa: u_email},
+        dataType:'json'
+
+    }).done(function(result){
+     
+        if(result == "error"){
+            '<td colspan="6"> Nenhum livro encontrado</td>';
+        }
+        else{
+
+        for(var i = 0; i<result.length; i++){
+
+            $('#requer').prepend(
+                '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
+                '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td><td><div class="text-center"><button onclick="cancelar( ISBN ='+"'"+result[i].ISBN+"'"+')" id="cancelar" type="submit" class="btn btn-danger">Cancelar</button></div></td></tr>');
+                           
+        }
+}
+                $('#emprestados').hide();
+                $('#disponiveis').hide();
+                $('#sistema').hide();
+                $('#meusLivros').hide();
+                $('#requerimentos').show();
+    });
+        });
+
+// cancelar requerimento
+function cancelar(){
+
+    var u_livro = ISBN;
+
+    // console.log(u_livro)
+    // console.log(u_email)
+    // return
+
+    $.ajax({
+        url: 'cancelar.php',
+        method: 'POST' ,
+        data: {livro: u_livro},
+        dataType:'json'
+
+    }).done(function(result){
+
+        if(result == "success"){
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Requerimento cancelado",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }
+    });
+};
 
 // selecionar livros emprestados
 $("#livrosEmp").click(function(e){
@@ -229,16 +346,25 @@ $("#livrosEmp").click(function(e){
         else{
         for(var i = 0; i<result.length; i++){
 
+        dataP = new Date(result[i].dataPubli);
+        dataFormatadaP = dataP.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+            
+        data = new Date(result[i].dataDevo);
+        dataFormatadaD = data.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+    
+
             $('#empre').prepend(
                 '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
                 '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nomes+'</p> </td> '+
-                '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td>'
-                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+result[i].dataPubli+'</p> </td></tr>');
+                '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaP+'</p> </td>'
+                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaD+'</p> </td></tr>');
                            
         }
 }
                 $('#emprestados').show();
                 $('#disponiveis').hide();
+                $('#requerimentos').hide();
+                $('#meusLivros').hide();
                 $('#sistema').hide();
     });
         });

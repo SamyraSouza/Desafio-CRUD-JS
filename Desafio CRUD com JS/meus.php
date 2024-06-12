@@ -1,30 +1,21 @@
-<?php
-    include('header.php');
-?>
-
-<div id="emprestados" class="card">
-  <div class="table-responsive">
-    <table class="table align-items-center mb-0">
-      <thead>
-        <tr>
-          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ISBN</th>
-          <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7 ps-2">Título</th>
-          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Categoria</th>
-          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data de Publicação</th>
-          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Autor</th>
-          <th class="text-center text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Data Devolução</th>
-        </tr>
-      </thead>
-
-      <tbody id="emprestados">
-     
-      </tbody>
-
-
-    </table>
-  </div>
-</div>
-
 <?php 
-    include('footer.php');
+
+
+header('Content-Type> application/json');
+
+$email = $_POST['pessoa'];
+
+$pdo = new PDO('mysql:host=localhost; dbname=livraria;','root', '1234');
+
+$stmt = $pdo->prepare('select livros.*, autores.Nome, categoria.Nomes, emprestimo.dataDevo from livros join autorlivro on livros.ISBN = autorlivro.ISBN_livro join autores on autores.id=autorlivro.idAutor join categoria on categoria.id=livros.idCategoria join emprestimo on emprestimo.ISBN_liv=livros.ISBN where (SELECT idCliente from emprestimo)= (select id from cliente WHERE email = "'.$email.'")');
+
+$stmt->execute();
+
+if($stmt->rowCount() >= 1){
+    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+
+}else{
+    echo json_encode('error');
+}
+
 ?>
