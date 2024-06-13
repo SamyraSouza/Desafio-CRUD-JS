@@ -153,7 +153,7 @@
   
 
       <li id="meus" class="nav-item" style="display:flex;">
-          <button  style="border:none; background-color:white;" class="nav-link " id="meus">
+          <button  style="border:none; background-color:white;" onclick="meus()" class="nav-link " id="meus">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-primary text-sm opacity-10"></i>
             </div>
@@ -162,7 +162,7 @@
         </li>
        
         <li class="nav-item" style="display:flex;">
-          <button  style="border:none; background-color:white;" class="nav-link " id="livrosDispo">
+          <button  style="border:none; background-color:white;" class="nav-link " onclick="dispo()" id="livrosDispo">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-align-left-2 text-primary text-sm opacity-10"></i>
             </div>
@@ -171,7 +171,7 @@
         </li>
      
         <li class="nav-item" style="display:flex;">
-          <button  style="border:none; background-color:white;" class="nav-link " id="reque">
+          <button  style="border:none; background-color:white;" class="nav-link " onclick="reque()" id="reque">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni  ni-collection ni-single-copy-04 text-primary text-sm opacity-10"></i>
             </div>

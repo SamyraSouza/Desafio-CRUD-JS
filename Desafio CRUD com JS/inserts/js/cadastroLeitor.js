@@ -147,11 +147,9 @@ $("#pg").click(function(e){
 });
 
 // selecionar meus livors
-$("#meus").click(function(e){
+function meus(){
 
     var u_email = $('#emailcheck').val();
-
-    e.preventDefault();
     
     $.ajax({
 
@@ -163,19 +161,24 @@ $("#meus").click(function(e){
     }).done(function(result){
      
         if(result == "error"){
-            '<td colspan="6"> Nenhum livro encontrado</td>';
+            $('#meusli').prepend(
+            '<td colspan="4"> Nenhum livro encontrado</td>');
         }
+
         else{
+
+        var html = '';
+
         for(var i = 0; i<result.length; i++){
 
         data = new Date(result[i].dataDevo);
         dataFormatadaD = data.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
     
 
-            $('#meusli').prepend(
+            html+=
                 '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
                 '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+
-                '<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaD+'</p> </td></tr>');
+                '<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaD+'</p> </td></tr>';
                            
         }
            
@@ -185,16 +188,15 @@ $("#meus").click(function(e){
                 $('#requerimentos').hide();
                 $('#meusLivros').show();
                 $('#sistema').hide();
+
+                $('#meusli').html(html);
     });  
-        });
-
-
+        };
 
 // selecionar livros disponiveis
-$("#livrosDispo").click(function(e){
+function dispo(){
 
-    e.preventDefault();
-
+    var htmldis = '';
     $.ajax({
 
         url: 'selecionardisp.php',
@@ -204,32 +206,33 @@ $("#livrosDispo").click(function(e){
     }).done(function(result){
      
             if(result == "error"){
-            '<td colspan="6"> Nenhum livro encontrado</td>';
+            $('#dispo').prepend(
+            '<td colspan="6"> Nenhum livro encontrado</td>');
         }
 
         else{
 
         for(var i = 0; i<result.length; i++){
-
             dataP = new Date(result[i].dataPubli);
             dataFormatadaP = dataP.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
 
-            $('#dispo').prepend(
-                '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN+'</h6></td>'+
-                '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nomes+'</p> </td> '+
-                '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaP+'</p> </td>'
-                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td><div class="text-center"><button onclick="fazer( ISBN ='+"'"+result[i].ISBN+"'"+')" id="fazer" type="submit" class="btn btn-info">Fazer requerimento</button></div></td></tr>');
-        }
+            htmldis+='<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN+'</h6></td>'+
+                        '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nomes+'</p> </td> '+
+                        '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaP+'</p> </td>'
+                        +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td><div class="text-center"><button onclick="fazer( ISBN ='+"'"+result[i].ISBN+"'"+')" id="fazer" type="submit" class="btn btn-info">Fazer requerimento</button></div></td></tr>';}
 }
                 $('#emprestados').hide();
                 $('#sistema').hide();
                 $('#requerimentos').hide();
                 $('#meusLivros').hide();
                 $('#disponiveis').show();   
-                               
+
+                $('#dispo').html(htmldis);
     }); 
-});
+};
    
+
+
 // Fazer requerimento
 function fazer(){
 
@@ -257,16 +260,21 @@ function fazer(){
                 showConfirmButton: false,
                 timer: 1500
               });
+
+             dispo(); 
         }
     });
 };
 
+
+
 // requerimento
-$("#reque").click(function(e){
+function reque(){
 
     var u_email = $('#emailcheck').val();
 
-    e.preventDefault();
+    var htmlreq='';
+
     
     $.ajax({
 
@@ -278,34 +286,32 @@ $("#reque").click(function(e){
     }).done(function(result){
      
         if(result == "error"){
-            '<td colspan="6"> Nenhum livro encontrado</td>';
+            $('#requer').prepend(
+            '<tr><td rowspan="3"> Nenhum livro encontrado</td></tr>');
         }
         else{
-
-        for(var i = 0; i<result.length; i++){
-
-            $('#requer').prepend(
-                '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
-                '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td><td><div class="text-center"><button onclick="cancelar( ISBN ='+"'"+result[i].ISBN+"'"+')" id="cancelar" type="submit" class="btn btn-danger">Cancelar</button></div></td></tr>');
+            for(var i = 0; i<result.length; i++){
+            htmlreq+='<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
+            '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td><td><div class="text-center"><button onclick="cancelar( ISBN ='+"'"+result[i].ISBN+"'"+')" id="cancelar" type="submit" class="btn btn-danger">Cancelar</button></div></td></tr>';
+}
+            
                            
         }
-}
+
                 $('#emprestados').hide();
                 $('#disponiveis').hide();
                 $('#sistema').hide();
                 $('#meusLivros').hide();
                 $('#requerimentos').show();
+                $('#requer').html(htmlreq);
+              
     });
-        });
+};
 
 // cancelar requerimento
 function cancelar(){
 
     var u_livro = ISBN;
-
-    // console.log(u_livro)
-    // console.log(u_email)
-    // return
 
     $.ajax({
         url: 'cancelar.php',
@@ -323,6 +329,8 @@ function cancelar(){
                 showConfirmButton: false,
                 timer: 1500
               });
+
+              reque();
         }
     });
 };
@@ -339,9 +347,12 @@ $("#livrosEmp").click(function(e){
         dataType:'json'
 
     }).done(function(result){
+
+        var htmlem='';
      
         if(result == "error"){
-            '<td colspan="6"> Nenhum livro encontrado</td>';
+            $('#empre').prepend(
+            '<td colspan="6"> Nenhum livro encontrado</td>');
         }
         else{
         for(var i = 0; i<result.length; i++){
@@ -353,11 +364,11 @@ $("#livrosEmp").click(function(e){
         dataFormatadaD = data.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
     
 
-            $('#empre').prepend(
+            htmlem+=
                 '<tr> <td> <div class="d-flex text-center px-2 py-1"><div class="d-flex flex-column justify-content-center"> <h6 class="mb-0 text-center text-xs">'+result[i].ISBN +'</h6></td>'+
                 '<td> <p class="text-xs font-weight-bold mb-0 text-center">'+result[i].titulo+'</p> </td> '+'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nomes+'</p> </td> '+
                 '<td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaP+'</p> </td>'
-                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaD+'</p> </td></tr>');
+                +'<td> <p class="text-xs text-center font-weight-bold mb-0">'+result[i].Nome+'</p> </td><td> <p class="text-xs text-center  font-weight-bold mb-0">'+dataFormatadaD+'</p> </td></tr>';
                            
         }
 }
@@ -366,5 +377,6 @@ $("#livrosEmp").click(function(e){
                 $('#requerimentos').hide();
                 $('#meusLivros').hide();
                 $('#sistema').hide();
+                $('#empre').html(htmlem);
     });
         });
