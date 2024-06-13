@@ -161,8 +161,7 @@ function meus(){
     }).done(function(result){
      
         if(result == "error"){
-            $('#meusli').prepend(
-            '<td colspan="4"> Nenhum livro encontrado</td>');
+            html+= '<td colspan="4" class="text-center"> Nenhum livro encontrado</td>';
         }
 
         else{
@@ -206,8 +205,7 @@ function dispo(){
     }).done(function(result){
      
             if(result == "error"){
-            $('#dispo').prepend(
-            '<td colspan="6"> Nenhum livro encontrado</td>');
+            htmldis+= '<td colspan="6" class="text-center"> Nenhum livro encontrado</td>';
         }
 
         else{
@@ -286,8 +284,7 @@ function reque(){
     }).done(function(result){
      
         if(result == "error"){
-            $('#requer').prepend(
-            '<tr><td rowspan="3"> Nenhum livro encontrado</td></tr>');
+            htmlreq+= '<td colspan="3" class="text-center"> Nenhum livro encontrado</td>';
         }
         else{
             for(var i = 0; i<result.length; i++){
@@ -349,10 +346,9 @@ $("#livrosEmp").click(function(e){
     }).done(function(result){
 
         var htmlem='';
-     
+       
         if(result == "error"){
-            $('#empre').prepend(
-            '<td colspan="6"> Nenhum livro encontrado</td>');
+            htmlem+= '<td colspan="6" class="text-center"> Nenhum livro encontrado</td>';
         }
         else{
         for(var i = 0; i<result.length; i++){
