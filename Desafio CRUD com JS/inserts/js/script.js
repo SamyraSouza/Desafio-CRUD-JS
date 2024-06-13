@@ -1,5 +1,4 @@
 function fornecerLivros(){ 
-
     $.ajax({
 
         url: 'selecionar.php',
